@@ -10,7 +10,7 @@ export const sendInitialPacket = (socket: UdpSocket) => {
     const packet = buildInitialPacket();
     // console.log(`Sending packet: ${packet}`);
 
-    socket.send(packet, 0, 32, 4501, Config.sources.timeServerAddress, function(err) {
+    socket.send(packet, 0, 32, Config.sources.timeServerPort, Config.sources.timeServerAddress, function(err) {
         if (err) console.log(err)
     })
 }
@@ -18,7 +18,6 @@ export const sendInitialPacket = (socket: UdpSocket) => {
 export function buildInitialPacket(): Uint8Array {
     let packet = new Uint8Array(32); // 4 numbers of 8 bytes ---> 32 entries of 8 bits
 
-    
     const timestamp = TimestampModule.getTimestamp();
     setTimeOnPacket(timestamp, packet, 0);
 

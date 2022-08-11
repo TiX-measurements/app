@@ -1,10 +1,13 @@
+const url = "http://tix.ext.tupac.gob.ar";
+const serverAddress = "tix.ext.tupac.gob.ar"
+
 const Config =
 {
     sources: {
-        backend: 'http://10.0.2.2:3001',
-        timeServerAddress: '10.0.2.2',
-        ClientTriggerAddress: '10.0.2.2',
-        timeServerPort: 4501,
+        backend: `${url}`,
+        timeServerAddress: serverAddress, ///'10.0.2.2',
+        ClientTriggerAddress: serverAddress, ///'10.0.2.2',
+        timeServerPort: 4500,
         clientTriggerPort: 7561
     },
     app: {
