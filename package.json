@@ -4,6 +4,8 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
+    "generate-apk-resources": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "generate-apk": "cd ./android && ./gradlew assembleRelease",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject",

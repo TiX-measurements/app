@@ -235,6 +235,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('tixapp.keystore')
+            storePassword 'tixapp'
+            keyAlias 'tixapp'
+            keyPassword 'tixapp'
+        }
     }
     buildTypes {
         debug {
