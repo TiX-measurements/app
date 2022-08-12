@@ -8,7 +8,6 @@ const { TimestampModule } = NativeModules;
 
 export const sendInitialPacket = (socket: UdpSocket) => {
     const packet = buildInitialPacket();
-    // console.log(`Sending packet: ${packet}`);
 
     socket.send(packet, 0, 32, Config.sources.timeServerPort, Config.sources.timeServerAddress, function(err) {
         if (err) console.log(err)

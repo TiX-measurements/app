@@ -52,7 +52,7 @@ export default function AddInstallation({ navigation }: RootTabScreenProps<'TabO
         else {createMessageAlert(AlertTitles.error, AlertMessages.login)}
       })
       .catch((e)=> {
-        createMessageAlert(AlertTitles.error, AlertMessages.connection)
+        createMessageAlert(AlertTitles.error, e.message)
       })
   
   }

@@ -23,3 +23,15 @@ npm run android
 
 ```
 This should compile and run the application on either your emulator or local device depending on what's connected at the moment you run this.
+
+## Generating APK
+
+To generate the apk based on the code:
+
+```
+
+cd android
+
+./gradlew assembleRelease
+
+```

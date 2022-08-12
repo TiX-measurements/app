@@ -26,9 +26,7 @@ export default function Measurements() {
 
     const messageHandler = (msg: any, receInfo: any) => {
         clearTimeout(timeoutMeasuring);
-
         if(msg.length > 32){
-          console.log('Is big packet');
           return;
         }
         const res0 = parseFromPacket(msg, 0, 2);
@@ -44,7 +42,7 @@ export default function Measurements() {
         }
 
         const packet = completePacket(msg);
-        console.log(`${new Date().toISOString()}: Completed: ${packet}`)
+        // console.log(`${new Date().toISOString()}: Completed: ${packet}`)
 
         packets.push({ data: packet, timestamp: getTimestamp() });
         

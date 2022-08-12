@@ -12,29 +12,21 @@ export async function getInstallations(): Promise<Installation> {
   const token = await get('token');
   return new Url(Config.sources.backend).Get(Config.resources.getInstallation(userId),{ Authorization: 'JWT ' + token })
   .then(async (response) => {
-      if (response.ok){
-        const result: InstallationData[] = (await response.json());
-        return {
-          data: result,
-        }
+    const result: InstallationData[] = (await response.json());
+    if (response.ok) {
+      return {
+        data: result,
       }
-      else if (response.status === 401) {
-        const result:ErrorResponse = await response.json();
-        return {
-          error: result,
-        }
+    } 
+
+    return {
+      data: []
+    }
+  }).catch((e)=>{
+      console.log(e)
+      const result:ErrorResponse = { reason: e.message };
+      return {
+        error: result,
       }
-      else {
-        const result:ErrorResponse = {reason: AlertMessages.login};
-        return {
-          error: result,
-        }
-      }
-    })
-    .catch((e)=>{
-      const result:ErrorResponse = {reason: AlertMessages.connection};
-        return {
-          error: result,
-        }
   })
 }

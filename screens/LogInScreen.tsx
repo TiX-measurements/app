@@ -23,9 +23,11 @@ export default function LogInScreen({ navigation }: RootTabScreenProps<'TabOne'>
       username: username,
       password: pass,
     }
+
     new Url(Config.sources.backend).Post(Config.resources.login, user)
       .then(async (response) => {
         if (response.ok){
+
           const result = (await response.json()) as CreateUserResponse;
           save("token", result.token)
           save("username", result.username)
@@ -43,10 +45,13 @@ export default function LogInScreen({ navigation }: RootTabScreenProps<'TabOne'>
         else if (response.status === 401) {
           const result = (await response.json()) as ErrorResponse;
           createMessageAlert(AlertTitles.error, result.reason)
+        } else {
+          createMessageAlert(AlertTitles.error, response.statusText)
         }
-        else {createMessageAlert(AlertTitles.error, AlertMessages.login)}
       })
-      .catch((e)=>{createMessageAlert(AlertTitles.error, AlertMessages.connection)})
+      .catch((e)=>{
+        createMessageAlert(AlertTitles.error, AlertMessages.connection)
+      })
   }
   
   return (
