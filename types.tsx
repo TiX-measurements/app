@@ -95,6 +95,7 @@ export type Installation = {
 export interface ProviderData {
   id : number;
   name: string;
+  reason?: string;
 };
 
 export type Provider = {

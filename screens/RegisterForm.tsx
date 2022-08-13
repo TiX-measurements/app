@@ -41,7 +41,6 @@ export default function RegisterFormScreen({ navigation }: RootTabScreenProps<'R
   }
 
   function signup(token: string) {
-    console.log('success!', token);
     const user = {
       captcharesponse: token,
       username: username,
@@ -50,18 +49,22 @@ export default function RegisterFormScreen({ navigation }: RootTabScreenProps<'R
     }
     new Url(Config.sources.backend).Post(Config.resources.signup, user)
     .then(async (response) => {
+      console.log(await response.json())
       if (response.ok){
         navigation.navigate('TabOne');
       } else if (response.status === 403) {
         const result = (await response.json()) as ErrorResponse;
-          createMessageAlert(AlertTitles.error, result.reason)
+        createMessageAlert(AlertTitles.error, result.reason);
+      } else {
+        createMessageAlert(AlertTitles.error, response.statusText)
       }
     })
-    .catch((e)=>{createMessageAlert(AlertTitles.error, AlertMessages.connection)})
+    .catch((e) => {
+      createMessageAlert(AlertTitles.error, e.message)
+    })
   }
 
   const send = () => {
-    console.log('send!');
     if (pass !== verifyPass || pass === '' || username === '')
     {
       createMessageAlert(AlertTitles.error, AlertMessages.signup)

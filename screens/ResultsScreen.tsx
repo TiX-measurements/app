@@ -61,10 +61,9 @@ export default function ResultsScreen() {
   async function getInstallation() {
     const installations = await getInstallations();
     if (installations.data) {
-      setInstallations(installations.data)
-    }
-    else{
-      createMessageAlert(AlertTitles.error, installations.error?installations.error.reason:AlertMessages.unexpected)
+      setInstallations(installations.data);
+    } else {
+      createMessageAlert(AlertTitles.error, installations.error ? installations.error.reason : AlertMessages.unexpected);
     }
   }
 
@@ -82,7 +81,7 @@ export default function ResultsScreen() {
   useEffect(() => {
     getInstallation()
     getProvider()
-    }, [])
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -166,7 +165,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width:'100%',
     justifyContent: 'space-around',
-    backgroundColor: '#BAE8E7',
   },
   dateSelector: {
     //marginVertical: 20,

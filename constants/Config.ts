@@ -1,12 +1,12 @@
 const url = "https://tix.ext.tupac.gob.ar:443";
-const serverAddress = "tix.ext.tupac.gob.ar"
+const serverAddress = "tix.ext.tupac.gob.ar";
 
 const Config =
 {
     sources: {
         backend: `${url}`,
-        timeServerAddress: serverAddress, ///'10.0.2.2',
-        ClientTriggerAddress: serverAddress, ///'10.0.2.2',
+        timeServerAddress: serverAddress, //'192.168.0.4', //
+        ClientTriggerAddress: serverAddress, //'192.168.0.4', //
         timeServerPort: 4500,
         clientTriggerPort: 7561
     },
@@ -21,13 +21,12 @@ const Config =
         getProvider: (id:string):string=>{return '/api/user/'+id+'/provider'},
         getProvidersReports: (id:string):string=>{return '/api/user/'+id+'/reports'},
         getReports: (uId:string,iId:string,pId:string,iDate:string, eDate:string):string=>{
-            console.log('endpoint', '/api/user/'+uId+'/reports?installationId='+iId+'&providerId='+pId+'&startDate='+iDate+'&endDate='+eDate)
             return '/api/user/'+uId+'/reports?installationId='+iId+'&providerId='+pId+'&startDate='+iDate+'&endDate='+eDate
         },
     },
     heartbeatFrecuency: 30, // Send heartbeat every X packets received
     triggerServerPacket: 30049,
-    bigPacketSize: 10
+    bigPacketSize: 30
 }
 
 const AlertMessages =

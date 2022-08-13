@@ -37,10 +37,6 @@ let getStringDate = (date: Date)=> {
 export async function getMeasurements(installationId:string, providerId:string,selectedDate: Date, ):Promise<Measurements> {
     const userId = (await get('id'))?.toString() ?? "";
     const token = await get('token');
-    //console.log('id: ',userId);
-    //console.log('token: ',token);  
-    //console.log('installationId: ',installationId);
-    //console.log('providerId: ',providerId);
     const initialDate = getStringDate(selectedDate);
     const endDate = getStringDate(selectedDate);
     return new Url(Config.sources.backend).Get(Config.resources.getReports(userId as string,installationId,providerId,initialDate,endDate),{Authorization: 'JWT '+ token})
