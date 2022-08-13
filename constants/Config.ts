@@ -1,4 +1,4 @@
-const url = "http://tix.ext.tupac.gob.ar";
+const url = "https://tix.ext.tupac.gob.ar:443";
 const serverAddress = "tix.ext.tupac.gob.ar"
 
 const Config =

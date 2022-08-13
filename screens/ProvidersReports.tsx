@@ -24,6 +24,9 @@ export default function ProvidersReports() {
     async function getReports() {
       const reports = await getProvidersReport();
       if (reports.data) {
+        if(reports.data.length === 0) {
+          return
+        }
         setReports(reports.data)
       }
       else{
