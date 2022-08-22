@@ -1,3 +1,6 @@
+//const url = "http://10.0.2.2:3001";
+//const serverAddress = "10.0.2.2";
+
 const url = "https://tix.ext.tupac.gob.ar:443";
 const serverAddress = "tix.ext.tupac.gob.ar";
 
@@ -5,8 +8,8 @@ const Config =
 {
     sources: {
         backend: `${url}`,
-        timeServerAddress: serverAddress, //'192.168.0.4', //
-        ClientTriggerAddress: serverAddress, //'192.168.0.4', //
+        timeServerAddress: serverAddress, 
+        ClientTriggerAddress: serverAddress, 
         timeServerPort: 4500,
         clientTriggerPort: 7561
     },

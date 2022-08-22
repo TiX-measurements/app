@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView } from '../components/Themed';
-import { StyleSheet, Pressable } from 'react-native';
-import { Report } from "../types";
+import { View, ScrollView } from '../components/Themed';
+import { StyleSheet, Pressable, Button } from 'react-native';
+import { Report, ProviderData } from "../types";
 import ProviderReport from "../components/ProviderReport";
 import { getProvidersReport } from "../helpers/measurements";
+import { getProviders } from "../helpers/provider";
 import { createMessageAlert } from "../helpers/Alerts";
 import { AlertMessages, AlertTitles } from "../constants/Config";
 
 export default function ProvidersReports() {
 
-    const reportInit:Report = {
+    let reportInit:Report = {
       upUsage: 100,
       downUsage: 30,
       upQuality: 20,
@@ -19,7 +20,9 @@ export default function ProvidersReports() {
       provider_id: 0,
       user_id: 0,
     };
+
     const [providersReport, setReports] = useState<Report[]>([reportInit]);
+    const [providers, setProviders] = useState<ProviderData[]>();
 
     async function getReports() {
       const reports = await getProvidersReport();
@@ -34,16 +37,35 @@ export default function ProvidersReports() {
       } 
     }
 
+    async function getProvider() {
+      const providers = await getProviders();
+      if (providers.data) {
+        setProviders(providers.data)
+      }
+      else{
+        createMessageAlert(AlertTitles.error, providers.error?providers.error.reason:AlertMessages.unexpected)
+      }
+    }
+
     useEffect(() => {
         getReports()
+        getProvider()
         }, [])
-      
-    let reports = providersReport.map((report,i)=>{return <ProviderReport data={report} name="test" key={'repor_'+i.toString()}/>});
+    
+    let getName = (providerId : number) => {
+      let provider = providers?.find(provider => provider.id === providerId)
+      return provider ? provider.name :"Unknown"
+    }
+    let reports = providersReport.map((report,i)=>{
+      return <ProviderReport data={report} name={getName(report.provider_id)} key={'repor_'+i.toString()}/>
+    }
+    );
       return (
         <View style={styles.container}>
           <ScrollView>
             {reports}
           </ScrollView>
+          <Button title='Update' onPress={getReports}></Button>
         </View>
       );
     }
@@ -69,7 +91,6 @@ export default function ProvidersReports() {
         backgroundColor: '#BAE8E7',
       },
       dateSelector: {
-        //marginVertical: 20,
         width: 60,  
         height: 60,   
         borderRadius: 30,            

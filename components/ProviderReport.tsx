@@ -7,8 +7,6 @@ import { useEffect, useState } from 'react';
 
 export default function ProviderReport(props:{data:Report, name:string} ) {
 
-  const [data, setdata] = useState<Report>(props.data);
-
   const config = {
     backgroundColor: "#e26a00",
     backgroundGradientFrom: "#fb8c00",
@@ -26,7 +24,6 @@ export default function ProviderReport(props:{data:Report, name:string} ) {
     }
   }
   useEffect(() => {
-    setdata(props.data)
     }, [])
   return (
         <View style={styles.getStartedContainer}>    
@@ -39,7 +36,7 @@ export default function ProviderReport(props:{data:Report, name:string} ) {
               <BarChart
                 data={{
                   labels:['Down Usage','Down Quality','Up Usage','Up Quality'],//props.data.dates,
-                  datasets: [{data:[data.downUsage, data.downQuality, data.upUsage, data.upQuality]}]
+                  datasets: [{data:[props.data.downUsage, props.data.downQuality, props.data.upUsage, props.data.upQuality]}]
                 }}
                 width={Dimensions.get("window").width*0.9}
                 height={220}

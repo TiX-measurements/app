@@ -14,8 +14,6 @@ export async function getProviders(): Promise<Provider> {
     return new Url(Config.sources.backend).Get(Config.resources.getProvider(userId), { Authorization: 'JWT ' + token })
     .then(async (response) => {
       const result: ProviderData[] = await response.json();
-      console.log(result)
-
       if (response.ok){
         return {
           data: result,

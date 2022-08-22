@@ -68,7 +68,22 @@ export async function getMeasurements(installationId:string, providerId:string,s
           }
       })
 }
-
+  function getLast(results: Report[]):Report[] {
+    let providerIds = new Map<string, Report>()
+    results.map((r)=>{
+      let id = r.provider_id.toString()
+      if (providerIds.has(id)) {
+        let report = providerIds.get(id)
+        let prevTimeStamp = new Date(report ? report.timestamp : '')
+        let timeStamp = new Date(r.timestamp)
+        if(prevTimeStamp > timeStamp) {
+          return
+        }
+      }
+      providerIds.set(id, r)
+    })
+    return [... providerIds.values()]
+}
 export async function getProvidersReport( ):Promise<ProvidersReports> {
     const userId = (await get('id'))?.toString() ?? "";
     const token = await get('token');
@@ -76,9 +91,16 @@ export async function getProvidersReport( ):Promise<ProvidersReports> {
       .then(async (response) => {
         if (response.ok){
           const result:Report[] = await response.json()
-          //const data = dataParser(result);
+          let result_ = result.map((r)=>{
+            r.downQuality = r.downQuality*100;
+            r.downUsage = r.downUsage*100;
+            r.upQuality = r.upQuality*100;
+            r.upUsage = r.upUsage*100;
+            return r
+          })
+          const data = getLast(result_);
           return {
-            data : result,
+            data : data,
           }
         } 
         else if (response.status === 401) {

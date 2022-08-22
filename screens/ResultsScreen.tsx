@@ -86,12 +86,14 @@ export default function ResultsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.selectorsContainer}>
+        <Text style={styles.titles}>Installation</Text>
       <SelectDropdown buttonStyle = {styles.selector}
 	      defaultButtonText= 'Installation'
         data={
           getInstallationNames(installations)
         }
 	      onSelect={(selectedItem, index) => {
+          getInstallation()
           const installationSelected = installations[index].id.toString();
           setInstallation(installationSelected);
           save("installation", installationSelected);
@@ -105,13 +107,14 @@ export default function ResultsScreen() {
 	      	return item
 	      }}
       />
-
-      <SelectDropdown buttonStyle = {styles.selector}
+      <Text style={styles.titles}>Provider</Text>
+      <SelectDropdown buttonStyle = {styles.selector} buttonTextStyle = {{fontSize:18}}
       defaultButtonText= 'Provider'
 	      data={
           getProvidersNames(providers)
         }
 	      onSelect={(selectedItem, index) => {
+          getProvider()
           const providerSelected = providers[index].id.toString();
           setProvider(providerSelected);
           //save("installation", installationSelected.id.toString());
@@ -154,17 +157,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%'
   },
-  header: {
+  selectorsContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%',
-    backgroundColor: '#EFEFEF',
-  },
-  selectorsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     width:'100%',
-    justifyContent: 'space-around',
+    height:'20%'
+    //justifyContent: 'space-around',
   },
   dateSelector: {
     //marginVertical: 20,
@@ -178,9 +176,9 @@ const styles = StyleSheet.create({
     
   },
   selector: {
-    margin:10,
-    borderRadius: 20,
-    width:'40%',
+    height: '25%',
+    borderRadius: 10,
+    width:'80%',
     backgroundColor: '#FFCC00'
   },
   separator: {
@@ -192,6 +190,11 @@ const styles = StyleSheet.create({
     position: 'absolute',                                          
     bottom: 5,                                                    
     right: 7,
-    
-  }
+  },
+  titles: {
+    fontSize:20
+    //height: '15%',
+    //width:'60%',
+    //borderRadius: 20,
+  },
 });
