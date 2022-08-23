@@ -69,7 +69,7 @@ export default function LogInScreen({ navigation }: RootTabScreenProps<'TabOne'>
         <TextInput style={styles.textInput}
           onChangeText={onChangePass}
           value={pass}
-          placeholder = 'Pasword'
+          placeholder = 'Password'
           secureTextEntry = {true}>
         </TextInput>
       </View>

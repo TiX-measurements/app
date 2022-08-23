@@ -93,7 +93,7 @@ export default function RegisterFormScreen({ navigation }: RootTabScreenProps<'R
         <TextInput style={styles.textInput}
           onChangeText={(e)=>{TextInputChange(e)}}
           value={pass}
-          placeholder = 'Pasword'
+          placeholder = 'Password'
           secureTextEntry = {true}>
         </TextInput>
         <TextInput 
@@ -102,7 +102,7 @@ export default function RegisterFormScreen({ navigation }: RootTabScreenProps<'R
           
           onChangeText={(e)=>{TextVerifyInputChange(e)}}
           value={verifyPass}
-          placeholder = 'Verify Pasword'
+          placeholder = 'Verify Password'
           secureTextEntry = {true}>
         </TextInput>
         <Recaptcha
