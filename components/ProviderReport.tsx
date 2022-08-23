@@ -8,9 +8,6 @@ import { useEffect, useState } from 'react';
 export default function ProviderReport(props:{data:Report, name:string} ) {
 
   const config = {
-    backgroundColor: "#e26a00",
-    backgroundGradientFrom: "#fb8c00",
-    backgroundGradientTo: "#ffa726",
     decimalPlaces: 2, // optional, defaults to 2dp
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -58,7 +55,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor:'#BAE8E7',
     borderRadius:30,
     marginVertical: 10,
     //height:'100%'
