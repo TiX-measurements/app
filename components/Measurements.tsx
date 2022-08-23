@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, Button, NativeModules, AppState } from 'react-native';
+import { StyleSheet, TouchableOpacity, Button, NativeModules, AppState, AppRegistry } from 'react-native';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 import React, { useState, useEffect, useRef } from 'react';
@@ -10,6 +10,7 @@ import { sendBigPacket } from '../helpers/bigPackets';
 import { Config } from '../constants/Config';
 import { getTimestamp } from '../helpers/timestamps';
 import { generateKeyPair } from '../helpers/crypto';
+const { Heartbeat } = NativeModules;
 
 
 let socket: UdpSocket;
@@ -21,6 +22,12 @@ let packets: {
 }[] = [];
 let timeoutMeasuring: NodeJS.Timeout;
 
+export const MyHeadlessTask = async () => {
+  console.log('Receiving HeartBeat!');
+  if (socket){
+    sendHeartBeat(socket);
+  }
+};
 
 export default function Measurements() {
     const appState = useRef(AppState.currentState);
@@ -28,6 +35,7 @@ export default function Measurements() {
     const [measuring, setMeasuring] = useState(false);
     const [cpacketCounter, setPacketCounter] = useState(0);
 
+ 
     const messageHandler = (msg: any, receInfo: any) => {
         clearTimeout(timeoutMeasuring);
         if(msg.length > 32){
@@ -72,6 +80,8 @@ export default function Measurements() {
         });
     
         initBackgroudHearBeat(socket);
+
+        Heartbeat.startService();
 
         return () => {
           subscription.remove();

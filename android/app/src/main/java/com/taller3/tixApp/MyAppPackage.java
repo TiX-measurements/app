@@ -4,6 +4,7 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.taller3.tixApp.TimestampModule;
+import com.taller3.tixApp.HeartbeatModule;
 
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class MyAppPackage implements ReactPackage {
        List<NativeModule> modules = new ArrayList<>();
 
        modules.add(new TimestampModule(reactContext));
+       modules.add(new HeartbeatModule(reactContext));
 
        return modules;
    }
