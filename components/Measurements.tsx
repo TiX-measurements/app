@@ -29,12 +29,24 @@ export const MyHeadlessTask = async () => {
   }
 };
 
+
+
 export default function Measurements() {
     const appState = useRef(AppState.currentState);
 
     const [measuring, setMeasuring] = useState(false);
     const [cpacketCounter, setPacketCounter] = useState(0);
+    const [heartbeatState, setHeartbeatState] = useState(true);
 
+    const toggleHearbeatService = () => {
+      if (heartbeatState) {
+        Heartbeat.stopService();
+      } else {
+        Heartbeat.startService();
+      }
+
+      setHeartbeatState(!heartbeatState);
+    }
  
     const messageHandler = (msg: any, receInfo: any) => {
         clearTimeout(timeoutMeasuring);
@@ -74,8 +86,9 @@ export default function Measurements() {
         setUp();
         
         const subscription = AppState.addEventListener("change", nextAppState => {
-          setUp();
           appState.current = nextAppState;
+
+          setUp();
           initBackgroudHearBeat(socket);
         });
     
@@ -119,7 +132,16 @@ export default function Measurements() {
                 Packets collected: {cpacketCounter}
                 </Text>
             </View>
-            </View>
+          </View>
+
+          <View style={styles.inputs}>
+            {
+              heartbeatState ?
+              <Button title='Pause background processing' onPress={() => toggleHearbeatService()} ></Button>
+              :
+              <Button title='Restart background processing' onPress={() => toggleHearbeatService()} ></Button>
+            }
+          </View>
         </View>
     );
 }
@@ -136,4 +158,17 @@ const styles = StyleSheet.create({
   boldText: {
     fontWeight: 'bold',
   },
+  button: {
+    marginBottom: 15,
+  },
+  separator: {
+    marginVertical: 5,
+    height: 1,
+    width: '80%',
+  },
+  inputs: {
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    flexDirection: 'column'
+  }
 });
